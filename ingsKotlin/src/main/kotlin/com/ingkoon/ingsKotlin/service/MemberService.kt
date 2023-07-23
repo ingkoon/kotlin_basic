@@ -5,6 +5,7 @@ import com.ingkoon.ingsKotlin.dto.member.Create
 import com.ingkoon.ingsKotlin.dto.member.Read
 
 import com.ingkoon.ingsKotlin.repository.MemberRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class MemberService {
 
+    @Autowired
     lateinit var memberRepository: MemberRepository
 
     @Transactional
