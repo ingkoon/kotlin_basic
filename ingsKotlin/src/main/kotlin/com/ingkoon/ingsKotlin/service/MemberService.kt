@@ -1,5 +1,6 @@
 package com.ingkoon.ingsKotlin.service
 
+import com.ingkoon.ingsKotlin.common.annotation.TimeLog
 import com.ingkoon.ingsKotlin.domain.Member
 import com.ingkoon.ingsKotlin.dto.member.Create
 import com.ingkoon.ingsKotlin.dto.member.Read
@@ -16,6 +17,7 @@ class MemberService {
     @Autowired
     lateinit var memberRepository: MemberRepository
 
+    @TimeLog
     @Transactional
     fun joinMember(requestDto: Create.request):
             Create.response {
