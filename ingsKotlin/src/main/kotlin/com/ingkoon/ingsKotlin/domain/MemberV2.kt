@@ -4,7 +4,7 @@ import com.ingkoon.ingsKotlin.domain.enums.Grade
 import javax.persistence.*
 
 @Entity
-class Member(
+class MemberV2(
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)
@@ -14,7 +14,7 @@ class Member(
     val grade: Grade
 ){
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
     fun updateName(name: String){
         this.name = name
