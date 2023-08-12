@@ -8,8 +8,10 @@ class Read {
     data class request(val id: Long)
 
     data class LoginRequestByCookie(val cookie : Cookie)
-    data class LoginRequestById(val id: String, val password: String)
+    data class LoginRequestById(val name: String, val password: String)
 
+
+    data class LoginResponseById(val cookie: Cookie)
     data class response(val name: String, val grade: Grade){
         fun fromEntity(member: Member): response{
             return response(member.name, member.grade)
