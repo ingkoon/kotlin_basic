@@ -20,13 +20,14 @@ class MemberService {
 
     @Autowired
     lateinit var memberRepository: MemberRepository
+    @Autowired
     lateinit var cookieConfiguration: CookieConfiguration
 
     @TimeLog
     @Transactional
     fun joinMember(requestDto: Create.request):
             Create.response {
-        var member: Member = requestDto.toEntity()
+        val member: Member = requestDto.toEntity()
         memberRepository.save(member)
         return Create.response("성공적으로 저장되었습니다.")
     }
@@ -47,9 +48,9 @@ class MemberService {
         return response
     }
 
-    fun readMember(requestDto: Read.request): Read.response {
+    fun readMember(requestDto: Read.Request): Read.Response {
         val memberId: Long = requestDto.id
         val member: Member = memberRepository.findById(memberId).orElseThrow()
-        return Read.response(member.name, member.grade)
+        return Read.Response(member.name, member.grade)
     }
 }
