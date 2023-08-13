@@ -8,6 +8,7 @@ import com.ingkoon.ingsKotlin.dto.member.Create
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import org.springframework.util.StreamUtils
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
@@ -22,14 +23,20 @@ class LoginFilter : Filter {
 
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
         val req : HttpServletRequest = request as HttpServletRequest
-        val json : String = req.inputStream.bufferedReader().use { it.readText()}
-        val requestDto: Create.request
+        if(req.cookies != null) {
+            chain?.doFilter(request, response)
+            return
+        }
+        val wrapper = RequestWrapper(req)
+        val body : ByteArray = StreamUtils.copyToByteArray(wrapper.inputStream)
+        val requestDto: Any
         try{
-            requestDto = mapper.readValue(json)
+            requestDto = mapper.readValue(body)
+            log.info("정상적인 요청이 수행되었습니다.")
+            chain?.doFilter(wrapper, response)
+            return
         }catch (e: UnrecognizedPropertyException){
             throw PreconditionFailedException()
         }
-
-        log.info("정상적인 요청이 수행되었습니다.")
     }
 }

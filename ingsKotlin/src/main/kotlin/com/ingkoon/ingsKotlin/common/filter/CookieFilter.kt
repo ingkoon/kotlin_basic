@@ -24,11 +24,18 @@ class CookieFilter : Filter {
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
         val req : HttpServletRequest = request as HttpServletRequest
         if(req.cookies == null){
+            log.info("cookie값이 없습니다.")
             chain?.doFilter(request, response)
+            log.info("요청 종료")
             return
         }
-        val cookies : Array<Cookie> = req.cookies
-        log.info(cookies.toString())
+        else{
+            val cookies : Array<Cookie> = req.cookies
+            log.info(cookies.toString())
+            chain?.doFilter(request, response)
+            log.info("나와")
+        }
+
     }
 
     @TimeLog
