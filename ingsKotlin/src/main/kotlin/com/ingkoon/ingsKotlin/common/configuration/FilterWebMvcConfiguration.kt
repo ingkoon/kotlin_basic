@@ -12,10 +12,16 @@ import javax.servlet.Filter
 class FilterWebMvcConfiguration : WebMvcConfigurer{
 
     @Bean
+    fun runFilterRegistration(){
+        registryCookieFilter()
+        registerLoginFilter()
+    }
+
+    @Bean
     fun registryCookieFilter() : FilterRegistrationBean<CookieFilter>{
         val registrationBean = FilterRegistrationBean(CookieFilter())
         registrationBean.order = 0
-        registrationBean.urlPatterns = mutableListOf("/member")
+        registrationBean.urlPatterns = mutableListOf("/member/*")
         return registrationBean
 
     }
@@ -24,7 +30,7 @@ class FilterWebMvcConfiguration : WebMvcConfigurer{
     fun registerLoginFilter() : FilterRegistrationBean<LoginFilter>{
         val registrationBean = FilterRegistrationBean(LoginFilter())
         registrationBean.order = 1
-        registrationBean.urlPatterns = mutableListOf("/member")
+        registrationBean.urlPatterns = mutableListOf("/member/*")
         return registrationBean
     }
 
