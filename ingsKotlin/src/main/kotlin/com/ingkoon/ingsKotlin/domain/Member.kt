@@ -2,7 +2,7 @@ package com.ingkoon.ingsKotlin.domain
 
 import com.ingkoon.ingsKotlin.domain.enums.Grade
 import javax.persistence.*
-
+// 테스트용 주석 추가
 @Entity
 class Member(
     @Column(nullable = false)
